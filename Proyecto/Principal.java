@@ -14,12 +14,15 @@ public class Principal extends JFrame implements ActionListener{
     private JComboBox comboDepartamento,comboAntiguedad;
     private JScrollPane scrollpane1; 
     private JTextArea textarea1;
+    String nombreAdministrador = "";
 
     public Principal() {
       setLayout(null);
       setTitle("Pantalla principal");
       getContentPane().setBackground(new Color(255,0,0));
       setIconImage(new ImageIcon(getClass().getResource("images/icon.png")).getImage());
+      Bienvenida ventanaBienvenida = new Bienvenida();
+      nombreAdministrador = ventanaBienvenida.texto;
 
       mb = new JMenuBar();
       mb.setBackground(new Color(255, 0, 0));
@@ -95,13 +98,13 @@ public class Principal extends JFrame implements ActionListener{
       labelLogo.setBounds(5,5,250,100);
       add(labelLogo);
 
-      labelBienvenido = new JLabel("Bienvenido");  
+      labelBienvenido = new JLabel("Bienvenido " + nombreAdministrador);  
       labelBienvenido.setBounds(280,30,300,50);
       labelBienvenido.setFont(new Font("Andale Mono", 1, 32));
       labelBienvenido.setForeground(new Color(255, 255, 255));
       add(labelBienvenido);
 
-      labelTitle = new JLabel("Datos del trabajador para el c�lculo de vacaciones");
+      labelTitle = new JLabel("Datos del trabajador para el calculo de vacaciones");
       labelTitle.setBounds(45,140,900,25);
       labelTitle.setFont(new Font("Andale Mono", 0, 24));
       labelTitle.setForeground(new Color(255, 255, 255));
@@ -160,7 +163,7 @@ public class Principal extends JFrame implements ActionListener{
       add(comboDepartamento);
       comboDepartamento.addItem("");
       comboDepartamento.addItem("Atencion al Cliente");
-      comboDepartamento.addItem("Departamento de Logostica");
+      comboDepartamento.addItem("Departamento de Logistica");
       comboDepartamento.addItem("Departamento de Gerencia");
 
       labelAntiguedad = new JLabel("Selecciona la Antiguedad:");
@@ -205,25 +208,111 @@ public class Principal extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == miCalculo) {
-   	         
+
+	    String nombreTrabajador = txtNombreTrabajador.getText();
+	    String AP = txtAPaternoTrabajador.getText();
+	    String AM = txtAMaternoTrabajador.getText();
+	    String Departamento = comboDepartamento.getSelectedItem().toString();
+	    String Antiguedad = comboAntiguedad.getSelectedItem().toString();
+
+            if(nombreTrabajador.equals("") || AP.equals("") || AM.equals("") ||
+               Departamento.equals("") || Antiguedad.equals("")){
+               
+                JOptionPane.showMessageDialog(null,"Debes de llenar todos los campos.");
+
+            } else {
+
+                if(Departamento.equals("Atencion al Cliente")){
+
+                                if(Antiguedad.equals("1 año de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 6 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("2 a 6 años de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 14 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("7 años o mas de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 20 dias de vacaciones.");
+				}
+                     
+                }
+	        if(Departamento.equals("Departamento de Logistica")){
+
+				if(Antiguedad.equals("1 año de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 7 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("2 a 6 años de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 15 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("7 años o mas de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 22 dias de vacaciones.");
+				}
+	    	}
+	    	if(Departamento.equals("Departamento de Gerencia")){
+
+				if(Antiguedad.equals("1 año de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 10 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("2 a 6 años de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 20 dias de vacaciones.");
+				}
+				if(Antiguedad.equals("7 años o mas de servicio")){
+					textarea1.setText("\n   El trabajador " + nombreTrabajador + " " + AP + " " + AM + 
+                                                          "\n   quien labora en " + Departamento + " con " + Antiguedad + 
+                                                          "\n   recibe 30 dias de vacaciones.");
+				}
+	    		}
+            }
+
         }
         if (e.getSource() == miRojo){
-
+            getContentPane().setBackground(new Color(255,0,0));
         }
         if (e.getSource() == miNegro){
-
+            getContentPane().setBackground(new Color(0,0,0));
         }
 	if (e.getSource() == miMorado){
-
+            getContentPane().setBackground(new Color(51,0,51));
         }
         if (e.getSource() == miNuevo){	
-	    
+
+	    txtNombreTrabajador.setText("");
+	    txtAPaternoTrabajador.setText("");
+	    txtAMaternoTrabajador.setText("");
+            comboDepartamento.setSelectedIndex(0);
+	    comboAntiguedad.setSelectedIndex(0);
+	    textarea1.setText("\n   Aqui aparece el resultado del calculo de las vacaciones.");	 
+   
         }
 	if (e.getSource() == miSalir){
+
+   	    Bienvenida ventanabienvenida = new Bienvenida();
+            ventanabienvenida.setBounds(0,0,350,450);
+            ventanabienvenida.setVisible(true);
+            ventanabienvenida.setResizable(false);
+            ventanabienvenida.setLocationRelativeTo(null);
+            this.setVisible(false);
 
 	}
         if (e.getSource() == miElCreador){
 
+            JOptionPane.showMessageDialog(null,"Desarrollado por Daniel Ortiz\n"+
+                                               "       Portafolio");
         }
     }
 
